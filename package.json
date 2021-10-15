@@ -11,7 +11,9 @@
 	],
 	"activationEvents": [
 		"onCommand:planimation.pddl",
-		"onCommand:planimation.openWebview"
+		"onCommand:planimation.openWebview",
+		"onCommand:planimation.openFiles",
+		"onView:mypddl-list"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -23,8 +25,29 @@
 			{
 				"command": "planimation.openWebview",
 				"title": "Open Planimation"
+			},
+			{
+				"command": "planimation.openFiles",
+				"title": "Select PDDL files"
 			}
-		]
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "mypddl",
+					"title": "Planimation",
+					"icon": "statics/image/icon.png"
+				}
+			]
+		},
+		"views": {
+			"mypddl": [
+				{
+					"name": "My PDDL Files",
+					"id": "mypddl-list"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"lint": "eslint .",
@@ -41,5 +64,8 @@
 		"mocha": "^9.1.1",
 		"typescript": "^4.4.3",
 		"@vscode/test-electron": "^1.6.2"
+	},
+	"dependencies": {
+		"form-data": "^4.0.0"
 	}
 }
