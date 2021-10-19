@@ -5,7 +5,7 @@ const fs = require("fs");
 const FormData = require("form-data");
 const Path = require("path");
 let localPddlPath = `D:\\Study\\2021S2\\project\\qqq`;
-const targetUrl = "https://morning-ridge-78538.herokuapp.com/page1";
+const targetUrl = "http://localhost:5000/problem";
 
 // let localPddlList = [];
 let selectedFiles = [];
@@ -370,6 +370,9 @@ function getHtmlForWebView() {
 							ifrm.height = document.documentElement.clientHeight;
 					
 							ifrm.width = document.documentElement.clientWidth;
+
+              window.frames[0].postMessage(JSON.stringify({key:'testval',value:'33'}),"${targetUrl}")
+
 							vscode.postMessage({
 								height: ifrm.height,
 								width: ifrm.width
