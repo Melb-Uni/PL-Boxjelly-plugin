@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
-
+let targetUrl = "http://localhost:5000/problem";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
@@ -9,30 +9,30 @@ const vscode = require("vscode");
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
   console.log('Congratulations, your extension "planimation" is now active!');
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with  registerCommand
-  // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand(
-    "planimation.pddl",
-    function () {
-      // The code you place here will be executed every time your command is executed
 
-      // Display a message box to the user
-      vscode.window.showInformationMessage("Hello World from planimation!");
-    }
+  context.subscriptions.push(
+    vscode.commands.registerCommand("planimation.changeUrl", function (uri) {
+      //  create webview
+      const url = vscode.window
+        .showInputBox({
+          placeHolder: "Please input the target url you want to open",
+          title: "Planimation URL",
+        })
+        .then((val) => {
+          if (val) {
+            targetUrl = val;
+          }
+        });
+    })
   );
-
-  context.subscriptions.push(disposable);
 
   context.subscriptions.push(
     vscode.commands.registerCommand("planimation.openWebview", function (uri) {
-      // 创建webview
+      //  create webview
       const panel = vscode.window.createWebviewPanel(
         "testWebview", // viewType
-        "WebView demo", // webview title
+        "Planimation", // webview title
         vscode.ViewColumn.One, // where to show in the screen
         {
           enableScripts: true,
@@ -40,10 +40,9 @@ function activate(context) {
         }
       );
       panel.webview.html = getHtmlForWebView();
-	  panel.webview.onDidReceiveMessage(msg=>{
-		console.log("clientHeight", msg)
-
-	  })
+      // panel.webview.onDidReceiveMessage((msg) => {
+      //   console.log("clientHeight", msg);
+      // });
     })
   );
 }
@@ -60,12 +59,11 @@ function getHtmlForWebView() {
 					<title>Planimation</title>
 				  </head>
 				  <body>
-				  <a href="http://localhost:5000">click me please</a>
 				  <div id="placeholder"></div>
 
 					<script id="iframeTemplate" type="text/html">
 						<iframe id="iframe"
-								src="http://localhost:5000" 
+								src="${targetUrl}" 
 								onload="adjustIframe()"
 								frameborder="0"
 								scrolling="auto">

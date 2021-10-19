@@ -10,19 +10,19 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:planimation.pddl",
-		"onCommand:planimation.openWebview"
+		"onCommand:planimation.openWebview",
+		"onCommand:planimation.changeUrl"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "planimation.pddl",
-				"title": "Planimation"
-			},
-			{
 				"command": "planimation.openWebview",
 				"title": "Open Planimation"
+			},
+			{
+				"command": "planimation.changeUrl",
+				"title": "Change Planimation URL"
 			}
 		]
 	},
