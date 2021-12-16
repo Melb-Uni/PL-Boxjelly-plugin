@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
-let targetUrl = "http://localhost:5000/problem";
+let targetUrl = "https://morning-ridge-78538.herokuapp.com/problem";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
@@ -9,7 +9,7 @@ let targetUrl = "http://localhost:5000/problem";
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-  console.log('Congratulations, your extension "planimation" is now active!');
+//   console.log('Congratulations, your extension "planimation" is now active!');
 
   context.subscriptions.push(
     vscode.commands.registerCommand("planimation.changeUrl", function (uri) {
